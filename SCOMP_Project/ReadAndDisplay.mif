@@ -1,0 +1,48 @@
+-- Altera Memory Initialization File (MIF)
+
+DEPTH = 2048;
+WIDTH = 16;
+
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+  BEGIN
+    [000..7FF] : 0000;  -- Default to NOP
+
+           000 : 90F1;  -- 	IN	   Quad
+           001 : 8008;  -- 	CALL   Mod6
+           002 : 8004;  -- 	CALL   DisplayWithNeg
+           003 : 2800;  -- 	JUMP   Start
+           004 : 9805;  -- 	OUT    Hex1
+           005 : 8011;  -- 	CALL   Negate
+           006 : 9804;  -- 	OUT    Hex0
+           007 : 8800;  -- 	RETURN
+           008 : 380A;  -- 	JPOS   Sub6
+           009 : 300D;  -- 	JNEG   Add6
+           00A : 2022;  -- 	SUB    Six
+           00B : 300D;  -- 	JNEG   Add6
+           00C : 280A;  -- 	JUMP   Sub6
+           00D : 1822;  -- 	ADD    Six
+           00E : 300D;  -- 	JNEG   Add6
+           00F : 8800;  -- 	RETURN
+           010 : 3813;  -- 	JPOS   Abs_r        ; If already positive, return
+           011 : 5815;  -- 	XOR    NegOne       ; Flip all bits
+           012 : 6801;  -- 	ADDI   1            ; Add one
+           013 : 8800;  -- 	RETURN
+           014 : 0000;  -- Zero:      DW 0
+           015 : FFFF;  -- NegOne:    DW -1
+           016 : 0001;  -- Bit0:      DW &B0000000001
+           017 : 0002;  -- Bit1:      DW &B0000000010
+           018 : 0004;  -- Bit2:      DW &B0000000100
+           019 : 0008;  -- Bit3:      DW &B0000001000
+           01A : 0010;  -- Bit4:      DW &B0000010000
+           01B : 0020;  -- Bit5:      DW &B0000100000
+           01C : 0040;  -- Bit6:      DW &B0001000000
+           01D : 0080;  -- Bit7:      DW &B0010000000
+           01E : 0100;  -- Bit8:      DW &B0100000000
+           01F : 0200;  -- Bit9:      DW &B1000000000
+           020 : 00FF;  -- LoByte:    DW &H00FF
+           021 : FF00;  -- HiByte:    DW &HFF00
+           022 : 0006;  -- Six:       DW 6
+  END;

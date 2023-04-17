@@ -1,0 +1,28 @@
+-- Altera Memory Initialization File (MIF)
+
+DEPTH = 2048;
+WIDTH = 16;
+
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+  BEGIN
+    [000..7FF] : 0000;  -- Default to NOP
+
+           000 : 080C;  -- 	LOAD   Degrees
+           001 : 8007;  -- 	CALL   ToEncoding
+           002 : 90F1;  -- 	IN     Quad
+           003 : 200D;  -- 	SUB    Encoding
+           004 : 9804;  -- 	OUT    Hex0
+           005 : 98F3;  -- 	OUT    Dir
+           006 : 2802;  -- 	JUMP   Start
+           007 : 180C;  -- 	ADD    Degrees
+           008 : 180C;  -- 	ADD	   Degrees
+           009 : 6011;  -- 	SHIFT  -1
+           00A : 100D;  -- 	STORE  Encoding
+           00B : 8800;  -- 	RETURN
+           00C : 0B40;  -- Degrees:   DW 2880 ;negative = CW, positive = CCW
+           00D : 0000;  -- Encoding:  DW 0
+           00E : 000F;  -- PWMHigh:   DW &H000F
+  END;
